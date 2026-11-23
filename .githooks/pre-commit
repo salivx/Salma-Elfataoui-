@@ -1,0 +1,9 @@
+#!/bin/sh
+# Met à jour automatiquement les sections générées du README.md avant chaque commit.
+# Activation (une fois par clone) : git config core.hooksPath .githooks
+
+if command -v node >/dev/null 2>&1; then
+  node tools/update-readme.mjs >/dev/null && git add README.md
+else
+  echo "pre-commit : node introuvable, README.md non régénéré." >&2
+fi

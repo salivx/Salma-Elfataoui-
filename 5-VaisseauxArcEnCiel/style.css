@@ -1,0 +1,78 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #000;
+  font-family: system-ui, sans-serif;
+}
+
+canvas {
+  display: block;
+}
+
+/* Panneau de réglages : haut de l'écran, semi-transparent, repliable. */
+.control-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  color: #fff;
+  font-size: 14px;
+  background: rgba(20, 20, 30, 0.55);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.control-panel > summary {
+  cursor: pointer;
+  padding: 6px 12px;
+  font-weight: 600;
+  user-select: none;
+}
+
+.control-panel-body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  padding: 0 12px 10px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.control-section {
+  min-width: 300px;
+}
+
+.control-section > summary {
+  cursor: pointer;
+  padding: 4px 0;
+  opacity: 0.85;
+  user-select: none;
+}
+
+.control-row {
+  display: grid;
+  grid-template-columns: 150px 1fr 56px;
+  align-items: center;
+  gap: 8px;
+  margin: 3px 0;
+}
+
+.control-row input[type="range"] {
+  width: 100%;
+}
+
+.control-value {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* La case à cocher de p5 est un <div> contenant <input> + <label>. */
+.control-checkbox {
+  display: flex;
+  gap: 6px;
+}
+
+.control-checkbox label {
+  cursor: pointer;
+}
