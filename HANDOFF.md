@@ -100,6 +100,10 @@ journal.
 
 ## Journal des sessions (le plus récent en haut)
 
+### 2026-11-24 — Claude Code (Claude Opus 5.5) — 6-SnakeIO, texte animé
+- Fait : le premier mot du texte géant est « SALMA » (au lieu de « SNAKE.IO »), demande de
+  l'utilisatrice. Fichiers : `6-SnakeIO/Game.js`, `6-SnakeIO/1-Specification.md`.
+
 ### 2026-11-24 — Claude Code (Claude Opus 5.5) — 6-SnakeIO, tâche 1
 - Fait : jeu snake.io complet (menu pseudo/couleur/difficulté, pause, fin de partie avec
   record en localStorage, classement, mini-carte, boost, caméra qui suit et dézoome),

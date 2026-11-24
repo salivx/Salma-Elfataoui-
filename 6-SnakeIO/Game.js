@@ -35,7 +35,7 @@ class Game {
     this.camera = new Camera(this.center.x, this.center.y);
     this.camera.zoom = 0.6;
     this.text = new AnimatedText(this, createVector(this.center.x, this.center.y - 200),
-      ['SNAKE.IO', 'MANGE-MOI', 'STEERING', 'REYNOLDS', 'M2 IA2', 'MIAM !']);
+      ['SALMA', 'MANGE-MOI', 'STEERING', 'REYNOLDS', 'M2 IA2', 'MIAM !']);
     this.hud = new Hud();
 
     this.menu = new Menu((name, hue, difficulty) => this.start(name, hue, difficulty));

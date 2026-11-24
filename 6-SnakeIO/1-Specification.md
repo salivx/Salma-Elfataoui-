@@ -16,7 +16,7 @@ jeu de snake façon **slither.io** :
 - Toucher le corps d'un autre serpent ou le bord du monde = mort ; le serpent mort se
   transforme en nourriture. Tête contre tête : le plus petit meurt.
 - Monde de 4000 × 4000 avec caméra qui suit le joueur et dézoome quand il grossit.
-- Texte géant au centre du monde (« SNAKE.IO », « MANGE-MOI », « STEERING »…) : ses points
+- Texte géant au centre du monde (« SALMA », « MANGE-MOI », « STEERING »…) : ses points
   valent 2, réapparaissent au loin quand ils sont mangés et reviennent reformer la lettre ;
   le mot change régulièrement et les points volent vers leur nouvelle place.
 
