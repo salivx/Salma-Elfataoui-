@@ -9,9 +9,21 @@ journal.
 
 ## État actuel
 
-- **Dernière mise à jour :** 2026-11-23 — Claude Code (Claude Opus 5.5)
+- **Dernière mise à jour :** 2026-11-24 — Claude Code (Claude Opus 5.5)
 - **Branche :** `main`
-- **Tâche en cours :** `5-VaisseauxArcEnCiel/1-Specification.md`.
+- **Dernière application créée :** `6-SnakeIO/` (jeu façon slither.io), spécification
+  `6-SnakeIO/1-Specification.md`, tâche 1 **faite et testée** (Chrome headless : menu,
+  partie, debug, texte mangé, fin de partie, pause ; aucune erreur JS ; ~60 FPS avec
+  15 serpents et ~1600 nourritures).
+  - Classes : `Snake`, `Segment`, `PlayerSnake`, `BotSnake`, `Food`, `TextFood`, `Camera`,
+    `ScorePopup` (tous des `Vehicle`) ; `AnimatedText`, `Game`, `Hud`, `Menu`,
+    `PauseScreen`, `GameOverScreen`, `ControlPanel` (gestion / interface).
+  - Le `Vehicle.js` de `6-SnakeIO/` a un comportement en plus : `contain(region, margin,
+    prediction)` (containment avec position prédite). À reporter dans `_template/` si utile.
+  - Texte animé : `AnimatedText` dessine le mot dans un `p5.Graphics` hors écran et lit ses
+    pixels (pas de fichier de police) ; chaque point est un `TextFood` qui `arrive()` à sa
+    place, se mange (valeur 2), réapparaît au loin et revient.
+- **Application précédente :** `5-VaisseauxArcEnCiel/1-Specification.md`.
   - Tâche 1 (curseurs vaisseaux + debug D/checkbox) : **faite et testée** (Chromium headless :
     D coche la case, la case remet `Vehicle.debug` à false, aucune erreur console).
   - Tâche 2 (dégradé radial arc-en-ciel qui suit la souris) : **faite et testée** (capture OK).
@@ -49,7 +61,10 @@ journal.
 
 ## Prochaines étapes suggérées
 
-1. Attendre la tâche 3 de `1-Specification.md`.
+1. Attendre la tâche 3 de `5-VaisseauxArcEnCiel/1-Specification.md`.
+2. `6-SnakeIO` : pistes possibles — sons (attention p5.sound + `file://`), contrôle tactile,
+   grille spatiale si on monte à 40 bots / 3000 nourritures, reporter `contain()` dans
+   `_template/Vehicle.js`.
 3. Ajouter à `Vehicle` les comportements manquants au fur et à mesure des besoins (avec
    les noms de `docs/STEERING_BEHAVIORS.md`).
 
@@ -84,6 +99,18 @@ journal.
 ---
 
 ## Journal des sessions (le plus récent en haut)
+
+### 2026-11-24 — Claude Code (Claude Opus 5.5) — 6-SnakeIO, tâche 1
+- Fait : jeu snake.io complet (menu pseudo/couleur/difficulté, pause, fin de partie avec
+  record en localStorage, classement, mini-carte, boost, caméra qui suit et dézoome),
+  bots à priorités (contain > avoid > evade > chasse > seek nourriture > wander), texte
+  géant animé mangeable, mode debug D + panneau de réglages (god mode, G/B/K).
+- Fichiers : tout le dossier `6-SnakeIO/` (créé depuis `_template/`, `Obstacle.js` retiré,
+  `ControlPanel.js` repris de `5-VaisseauxArcEnCiel/`).
+- Pièges : un `Segment` suit avec `arrive(cible, maxSpeed)` (slowRadius = maxSpeed → gain 1,
+  pas d'oscillation) ; la saisie du pseudo ne doit pas déclencher les raccourcis
+  (test `document.activeElement` dans `keyPressed`) ; le boost souris n'est activé que
+  par un clic sur le canevas (`canvas.mousePressed`) pour ignorer les clics du menu.
 
 ### 2026-11-23 — Claude Code (Claude Opus 5.5) — Correctif écran noir
 - Symptôme : `5-VaisseauxArcEnCiel/index.html` ouvert par double-clic → écran noir.

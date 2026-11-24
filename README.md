@@ -35,7 +35,7 @@ Touche `d` : mode debug (vecteurs, zones de perception) dans les sketches qui le
 ## Applications
 
 <!-- AUTO:PROJECTS:START -->
-8 application(s) détectée(s) (tout dossier contenant un `index.html`).
+9 application(s) détectée(s) (tout dossier contenant un `index.html`).
 
 | Dossier | Description | Classes (→ parente) | Comportements implémentés |
 |---|---|---|---|
@@ -47,6 +47,7 @@ Touche `d` : mode debug (vecteurs, zones de perception) dans les sketches qui le
 | [3-Arrival_correction](3-Arrival_correction/) | 3-Arrival_correction | `Snake → Vehicle`, `SnakeWander → Snake`, `Vehicle`, `Target → Vehicle` | `seek`, `flee`, `arrive`, `pursue`, `evade`, `wander`, `boundaries` |
 | [4-Wander](4-Wander/) | 4-Wander | `Vehicle` | `seek`, `flee`, `arrive`, `pursue`, `evade`, `wander` |
 | [5-VaisseauxArcEnCiel](5-VaisseauxArcEnCiel/) | Vaisseaux arc-en-ciel — Vaisseaux (`Ship extends Vehicle`) en errance, réglables depuis un panneau repliable (nombre 1–200, vitesse max, accélération max) ; touche D / case à cocher synchronisées pour le debug (vecteurs vitesse en rouge) ; halo radial arc-en-ciel (`RainbowGradient extends Vehicle`) qui suit la souris avec `arrive()`, entièrement réglable. Spécification : `1-Specification.md`. | `ControlPanel`, `RainbowGradient → Vehicle`, `Ship → Vehicle`, `Vehicle` | `seek`, `flee`, `arrive`, `pursue`, `evade`, `wander`, `avoid`, `boundaries`, `separate`, `align`, `cohesion`, `flock` |
+| [6-SnakeIO](6-SnakeIO/) | Snake.io — Jeu façon slither.io entièrement construit sur les steering behaviors : la tête du joueur fait un `seek()` vers la souris, chaque anneau (`Segment extends Vehicle`) suit le précédent avec `arrive()`, les bots (`BotSnake`) combinent `contain`, `avoid`, `evade`, poursuite, `seek` et `wander` par priorités, la nourriture est aspirée par `seek()`, la caméra suit par `arrive()`. Un texte géant animé (`TextFood`, points qui rejoignent leur lettre avec `arrive()`) se mange pour grandir et se reforme. Menu, pause, fin de partie, classement, mini-carte, boost, et mode debug (touche D + panneau de réglages). Spécification : `1-Specification.md`. | `AnimatedText`, `BotSnake → Snake`, `Camera → Vehicle`, `ControlPanel`, `Food → Vehicle`, `Game`, `GameOverScreen`, `Hud`, `Menu`, `PauseScreen`, `PlayerSnake → Snake`, `ScorePopup → Vehicle`, `Segment → Vehicle`, `Snake → Vehicle`, `TextFood → Food`, `Vehicle` | `hide`, `seek`, `flee`, `arrive`, `pursue`, `evade`, `wander`, `avoid`, `boundaries`, `contain`, `separate`, `align`, `cohesion`, `flock` |
 <!-- AUTO:PROJECTS:END -->
 
 ## Conformité à l'architecture
@@ -72,8 +73,7 @@ Touche `d` : mode debug (vecteurs, zones de perception) dans les sketches qui le
 ## Historique récent
 
 <!-- AUTO:HISTORY:START -->
-- 2026-03-30 — first commit (micbuffa)
-- 2026-03-30 — first commit (micbuffa)
+- 2026-11-23 — 1-Seek: tâches 1 et 2 + documentation du projet (salivx)
 <!-- AUTO:HISTORY:END -->
 
 ---

@@ -1,0 +1,3 @@
+# Snake.io
+
+Jeu façon slither.io entièrement construit sur les steering behaviors : la tête du joueur fait un `seek()` vers la souris, chaque anneau (`Segment extends Vehicle`) suit le précédent avec `arrive()`, les bots (`BotSnake`) combinent `contain`, `avoid`, `evade`, poursuite, `seek` et `wander` par priorités, la nourriture est aspirée par `seek()`, la caméra suit par `arrive()`. Un texte géant animé (`TextFood`, points qui rejoignent leur lettre avec `arrive()`) se mange pour grandir et se reforme. Menu, pause, fin de partie, classement, mini-carte, boost, et mode debug (touche D + panneau de réglages). Spécification : `1-Specification.md`.
