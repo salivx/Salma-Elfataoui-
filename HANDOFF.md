@@ -9,9 +9,20 @@ journal.
 
 ## État actuel
 
-- **Dernière mise à jour :** 2026-11-24 — Claude Code (Claude Opus 5.5)
+- **Dernière mise à jour :** 2026-11-25 — Claude Code (Claude Opus 5.5)
 - **Branche :** `main`
-- **Dernière application créée :** `6-SnakeIO/` (jeu façon slither.io), spécification
+- **Dernière application créée :** `7-NeuroRace/` (course 3D néon contre des IA à réseau de
+  neurones, d'après `9-VoitureSuitCircuit` du cours). Spécification `7-NeuroRace/1-Specification.md`,
+  tâches 1 (jeu) et 2 (menu « Réseau neuronal ») **faites et testées** (Chrome headless : menu,
+  course, 3 caméras, pause, résultats, Labo IA, réglages, debug ; aucune erreur JS).
+  - Rendu 3D fait main en p5 2D (`Renderer3D` : projection perspective + algorithme du peintre).
+  - Coureurs IA = `Runner extends Vehicle` : 7 rayons (`Ray`) + vitesse → `NeuralNetwork` 8→12→2
+    (JS pur, pas TensorFlow) → force `desired - vel`. Cerveaux pré-entraînés dans `brains.js`.
+  - Joueur = `PlayerRunner extends Runner` : `arrive()` vers le pointeur, ou flèches (direction écran).
+  - `Population` : algorithme génétique configurable via `NeuroSettings` (réglages en localStorage).
+  - Ne pas changer `TRACK_W`, `SIGHT`, `RAY_ANGLES`, `MAX_SPEED`, `MAX_FORCE` dans `config.js` :
+    les cerveaux pré-entraînés ne sauraient plus conduire.
+- **Application précédente :** `6-SnakeIO/` (jeu façon slither.io), spécification
   `6-SnakeIO/1-Specification.md`, tâche 1 **faite et testée** (Chrome headless : menu,
   partie, debug, texte mangé, fin de partie, pause ; aucune erreur JS ; ~60 FPS avec
   15 serpents et ~1600 nourritures).
@@ -99,6 +110,15 @@ journal.
 ---
 
 ## Journal des sessions (le plus récent en haut)
+
+### 2026-11-25 — Claude Code (Claude Opus 5.5) — 7-NeuroRace, tâches 1 et 2
+- Fait : jeu de course 3D (menu, pause, résultats, record, classement, 3 caméras V, cerveau du
+  rival en direct N, debug D), Labo IA (neuro-évolution en direct) et menu « Réseau neuronal »
+  (neurones cachés, activation, rayons, champ de vision, population, mutation, croisement,
+  élitisme, fitness, préréglages).
+- Pièges : la caméra (`CameraRig`) appelle `arrive()` avec `Vehicle.debug` coupé, sinon le cercle
+  de debug se dessine en coordonnées plan ; `D` sert au debug, donc la conduite clavier est aux
+  flèches ; le joueur glisse le long des murs (seuls les blocs pare-feu étourdissent).
 
 ### 2026-11-24 — Claude Code (Claude Opus 5.5) — 6-SnakeIO, texte animé
 - Fait : le premier mot du texte géant est « SALMA » (au lieu de « SNAKE.IO »), demande de

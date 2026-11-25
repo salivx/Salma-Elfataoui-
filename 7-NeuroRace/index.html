@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neuro Race</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="stage"></div>
+
+  <!-- MENU PRINCIPAL -->
+  <section id="menu" class="screen">
+    <div class="menuBox">
+      <p class="kicker">Neuro-évolution · Steering behaviors</p>
+      <h1>NEURO<span>RACE</span></h1>
+      <p class="tag">Bats 5 androïdes pilotés par des réseaux de neurones sur le circuit néon.</p>
+
+      <label class="field">Pseudo <input id="name" type="text" maxlength="10" placeholder="JOUEUR" autocomplete="off"></label>
+      <div class="field">Couleur <div id="swatches"></div></div>
+      <div class="field">Difficulté
+        <div class="choice" id="diff">
+          <button data-v="facile">Facile</button><button data-v="normal" class="on">Normal</button><button data-v="difficile">Difficile</button>
+        </div>
+      </div>
+      <div class="field">Contrôle
+        <div class="choice" id="ctrl">
+          <button data-v="mouse" class="on">Souris</button><button data-v="keys">Flèches</button>
+        </div>
+      </div>
+      <div class="field">Tours
+        <div class="choice" id="laps">
+          <button data-v="1">1</button><button data-v="3" class="on">3</button><button data-v="5">5</button>
+        </div>
+      </div>
+
+      <button id="playBtn" class="big">JOUER</button>
+      <div class="row">
+        <button id="labBtn">LABO IA</button>
+        <button id="neuroBtn">RÉSEAU NEURONAL</button>
+      </div>
+      <div class="row" style="margin-top:8px"><button id="howBtn">COMMENT JOUER</button></div>
+      <div id="how">
+        <p><b>Souris</b> : ton androïde court vers le pointeur, montre-lui où aller. <b>Flèches</b> : ↑ ↓ ← → = direction à l'écran, <b>Espace</b> freine. Les murs te font glisser, seuls les blocs orange t'étourdissent.</p>
+        <p><b>V</b> caméra 3D / dessus / poursuite · <b>N</b> afficher le cerveau du meilleur rival · <b>Échap</b> pause · <b>D</b> debug · molette : zoom.</p>
+        <p>Flèches cyan = <b>turbo</b>. Zones violettes = <b>bug</b>, tu ralentis. Blocs orange = <b>pare-feu</b> : crash et 40 frames d'étourdissement. Ramasse les cristaux de <b>data</b>.</p>
+        <p>Les rivaux voient la piste avec 7 <b>rayons-capteurs</b>. Leur réseau (8 → 12 → 2) choisit direction et vitesse. Ils ont appris par <b>algorithme génétique</b>, comme les voitures de 9-VoitureSuitCircuit. Dans le <b>Labo IA</b>, tu entraînes ta propre IA puis tu cours contre elle.</p>
+      </div>
+      <p id="record"></p>
+    </div>
+  </section>
+
+  <!-- RÉGLAGES DU RÉSEAU NEURONAL -->
+  <section id="neuro" class="screen hidden">
+    <div class="menuBox wide">
+      <h2>RÉSEAU NEURONAL</h2>
+      <p class="tag">Règle le cerveau et l'évolution des coureurs du <b>Labo IA</b>, puis entraîne-les et cours contre « Mon IA ». Les rivaux de la course gardent leurs cerveaux pré-entraînés.</p>
+      <canvas id="neuroCanvas" width="500" height="170"></canvas>
+      <p id="neuroSummary"></p>
+      <div id="neuroForm"></div>
+      <button id="neuroGo" class="big">LANCER LE LABO</button>
+      <div class="row"><button id="neuroReset">PAR DÉFAUT</button><button id="neuroBack">RETOUR</button></div>
+    </div>
+  </section>
+
+  <!-- PAUSE -->
+  <section id="pause" class="screen hidden">
+    <div class="menuBox small">
+      <h2>PAUSE</h2>
+      <button id="resumeBtn" class="big">REPRENDRE</button>
+      <div class="row"><button id="restartBtn">RECOMMENCER</button><button id="quitBtn">MENU</button></div>
+    </div>
+  </section>
+
+  <!-- RÉSULTATS -->
+  <section id="results" class="screen hidden">
+    <div class="menuBox small">
+      <h2 id="resTitle">VICTOIRE !</h2>
+      <p id="resSub" class="tag"></p>
+      <table><tbody id="resTable"></tbody></table>
+      <button id="againBtn" class="big">REJOUER</button>
+      <div class="row"><button id="menuBtn2">MENU</button></div>
+    </div>
+  </section>
+
+  <!-- BARRE DU LABO IA -->
+  <section id="labBar" class="hidden">
+    <label>Vitesse d'entraînement <input id="labSpeed" type="range" min="1" max="20" value="1"> <b id="labSpeedVal">1×</b></label>
+    <button id="raceMine">Courir contre mon IA</button>
+    <button id="saveBrain">Sauvegarder</button>
+    <button id="loadBrain">Charger</button>
+    <button id="labNeuro">Réglages IA</button>
+    <button id="resetLab">Recommencer</button>
+    <button id="labMenu">Menu</button>
+    <span id="labMsg"></span>
+  </section>
+
+  <!-- PANNEAU DEBUG (touche D) -->
+  <section id="debugPanel" class="hidden">
+    <header>DEBUG <button id="dbClose" aria-label="Fermer">×</button></header>
+    <label><input type="checkbox" id="dbRays"> Rayons-capteurs</label>
+    <label><input type="checkbox" id="dbCps"> Checkpoints</label>
+    <label><input type="checkbox" id="dbVec"> Vecteurs vitesse</label>
+    <label><input type="checkbox" id="dbNN" checked> Réseau de neurones (Labo)</label>
+    <label><input type="checkbox" id="dbCity" checked> Ville en 3D</label>
+    <label>Taux de mutation <b id="dbMutVal"></b><input type="range" id="dbMut" min="0" max="0.5" step="0.01" value="0.1"></label>
+    <label>Nombre de rivaux <b id="dbRivalsVal"></b><input type="range" id="dbRivals" min="1" max="5" step="1" value="5"></label>
+    <label>Vitesse des rivaux <b id="dbSpeedVal"></b><input type="range" id="dbSpeed" min="0.7" max="1.2" step="0.01" value="1"></label>
+  </section>
+
+  <!-- COMMANDES TACTILES -->
+  <div id="touch" style="display:none">
+    <button id="tLeft" aria-label="Gauche">◀</button>
+    <span class="mid"><button id="tUp" aria-label="Haut">▲</button><button id="tBrake" aria-label="Freiner">■</button><button id="tDown" aria-label="Bas">▼</button></span>
+    <button id="tRight" aria-label="Droite">▶</button>
+  </div>
+
+  <script src="libraries/p5.min.js"></script>
+  <script src="config.js"></script>
+  <script src="brains.js"></script>
+  <script src="Vehicle.js"></script>
+  <script src="NeuralNetwork.js"></script>
+  <script src="Boundary.js"></script>
+  <script src="Ray.js"></script>
+  <script src="Obstacle.js"></script>
+  <script src="BoostPad.js"></script>
+  <script src="GlitchField.js"></script>
+  <script src="DataShard.js"></script>
+  <script src="Building.js"></script>
+  <script src="WallSegment.js"></script>
+  <script src="Track.js"></script>
+  <script src="Runner.js"></script>
+  <script src="PlayerRunner.js"></script>
+  <script src="Particle.js"></script>
+  <script src="ScorePopup.js"></script>
+  <script src="Population.js"></script>
+  <script src="CameraRig.js"></script>
+  <script src="Renderer3D.js"></script>
+  <script src="sfx.js"></script>
+  <script src="Hud.js"></script>
+  <script src="Menu.js"></script>
+  <script src="PauseScreen.js"></script>
+  <script src="ResultsScreen.js"></script>
+  <script src="LabScreen.js"></script>
+  <script src="ControlPanel.js"></script>
+  <script src="NeuroSettings.js"></script>
+  <script src="Game.js"></script>
+  <script src="sketch.js"></script>
+</body>
+</html>
